@@ -43,7 +43,6 @@ namespace ToDoApp.WebApi.Controllers
         }
 
         [HttpDelete("Delete")]
-
         public ResponseDto Delete(int id) 
         {
             return _todoBusiness.Delete(id);
