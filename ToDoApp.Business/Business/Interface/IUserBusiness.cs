@@ -12,6 +12,6 @@ namespace ToDoApp.Business.SqlServer.Business.Interface
     {
 
         public ResponseDto Save(UserSaveCriteriaBo userSaveCriteriaBo);
-        public int GetId(string userName);
+        public ResponseDto GetId(string userName);
     }
 }

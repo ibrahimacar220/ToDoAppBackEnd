@@ -66,10 +66,23 @@ namespace ToDoApp.Business.SqlServer.Business
 
         }
 
-        public int GetId(string userName)
+        public ResponseDto GetId(string userName)
         {
-            User user = dbContext.Users.FirstOrDefault(p => p.Username == userName);
-            return user.Id;
+            try
+            {
+                User user = dbContext.Users.FirstOrDefault(p => p.Username == userName);
+                if (user == null)
+                {
+                    return new ResponseDto().Failed("UserName or Password Wrong");
+                }
+                return new ResponseDto().Success(user.Id);
+            }
+            catch (Exception ex)
+            {
+
+                return new ResponseDto().FailedWithException(ex);
+            }
+          
 
         }
         public void Dispose()

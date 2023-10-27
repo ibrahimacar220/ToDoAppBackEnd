@@ -27,7 +27,7 @@ namespace ToDoApp.WebApi.Controllers
             return _userBusiness.Save(userSaveCriteriaBo);
         }
         [HttpGet("GetId")]
-        public int GetId(string userName)
+        public ResponseDto GetId(string userName)
         {
             return _userBusiness.GetId(userName);
         }
