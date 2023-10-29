@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.WebApi", "ToDoApp.WebApi\ToDoApp.WebApi.csproj", "{78F71C7C-9A8A-44F4-BAA2-BD42C482A804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.WebApi", "ToDoApp.WebApi\ToDoApp.WebApi.csproj", "{78F71C7C-9A8A-44F4-BAA2-BD42C482A804}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Business.SqlServer", "ToDoApp.Business\ToDoApp.Business.SqlServer.csproj", "{73C34499-DAA8-406E-8DE8-3F32AC69936D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Business.SqlServer", "ToDoApp.Business\ToDoApp.Business.SqlServer.csproj", "{73C34499-DAA8-406E-8DE8-3F32AC69936D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{A572A1C2-6D2C-4BEC-91D3-D99389AEC730}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{ED6F3DE0-8BB5-4A3F-9547-E343CE33AA7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Business.Common", "ToDoApp.Business.Common\ToDoApp.Business.Common.csproj", "{A6BBF8AA-6020-4D94-A750-D3D6E68A445D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Business.Common", "ToDoApp.Business.Common\ToDoApp.Business.Common.csproj", "{A6BBF8AA-6020-4D94-A750-D3D6E68A445D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{78F71C7C-9A8A-44F4-BAA2-BD42C482A804} = {A572A1C2-6D2C-4BEC-91D3-D99389AEC730}
 		{73C34499-DAA8-406E-8DE8-3F32AC69936D} = {ED6F3DE0-8BB5-4A3F-9547-E343CE33AA7F}
+		{A6BBF8AA-6020-4D94-A750-D3D6E68A445D} = {ED6F3DE0-8BB5-4A3F-9547-E343CE33AA7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F8335C1-1CE0-4A33-9441-F44EDCBD47AA}

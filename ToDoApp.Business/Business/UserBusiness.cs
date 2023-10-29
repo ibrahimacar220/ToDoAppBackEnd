@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ToDoApp.Business.Common.Response;
 using ToDoApp.Business.SqlServer.Bo.User;
@@ -25,6 +26,14 @@ namespace ToDoApp.Business.SqlServer.Business
             int id = userSaveCriteriaBo.Id;
             string userName = userSaveCriteriaBo.Username;
             string password = userSaveCriteriaBo.Password;
+
+            Regex regexMail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match matchGmail = regexMail.Match(userName);
+            if (!matchGmail.Success)
+            {
+                return new ResponseDto().Failed("Plase Enter a Valid Mail like this: adc@exemple.com");
+            }
+
             if (id == 0)
             {
                 User userBo = dbContext.Users.FirstOrDefault(x => x.Username == userName);

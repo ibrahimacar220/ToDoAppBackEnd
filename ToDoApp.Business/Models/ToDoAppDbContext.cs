@@ -30,9 +30,7 @@ public partial class ToDoAppDbContext : DbContext
             entity.ToTable("ToDo");
 
             entity.Property(e => e.CreateDate).HasColumnType("datetime");
-            entity.Property(e => e.Tasks)
-                .HasMaxLength(50)
-                .IsFixedLength();
+            entity.Property(e => e.Tasks).HasMaxLength(50);
 
             entity.HasOne(d => d.User).WithMany(p => p.ToDos)
                 .HasForeignKey(d => d.UserId)

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ToDoApp.WebApi;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,7 +69,17 @@ builder.Services.AddScoped<ITodoBusiness, ToDoBusiness>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+
 var app = builder.Build();
+
+
+CheckAndRunDatabaseScript(app.Configuration, app.Environment);
+
+//app.UseRouting();
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//});
 
 app.UseCors(x => x
     .AllowAnyMethod()
@@ -92,3 +103,58 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void CheckAndRunDatabaseScript(IConfiguration configuration, IWebHostEnvironment env)
+{
+    string connectionString = configuration.GetConnectionString("DefaultConnection");
+    string databaseName = "ToDoAppDb";
+    using (var connection = new SqlConnection(connectionString))
+    {
+        connection.Open();
+        var command = new SqlCommand("SELECT database_id FROM sys.databases WHERE Name = @DatabaseName", connection);
+        command.Parameters.AddWithValue("@DatabaseName", databaseName);
+        var databaseId = command.ExecuteScalar();
+
+        if (databaseId == null)
+        {
+            RunSqlScript(configuration, env);
+        }
+        // Diðer servis konfigürasyonlarý devam eder
+    }
+}
+
+void RunSqlScript(IConfiguration configuration, IWebHostEnvironment env)
+{
+    string connectionString = configuration.GetConnectionString("DefaultConnection");
+    string contentRootPath = env.ContentRootPath;
+    string folderToRemove = "ToDoApp.WebApi";
+    string modifiedPath = "";
+    if (contentRootPath.EndsWith(folderToRemove))
+    {
+         modifiedPath = contentRootPath.Substring(0, contentRootPath.Length - folderToRemove.Length - 1);
+        // -1, ayraç karakteri (\) için
+        Console.WriteLine(modifiedPath); // Sonuç: C:\Users\iacar\source\repos\ToDoApp
+    }
+
+    string scriptPath = Path.Combine(modifiedPath, "ToDoApp.Business", "DatabaseBackUpScript","ToDoApp.sql");
+
+    if (File.Exists(scriptPath))
+    {
+        string scriptContent = File.ReadAllText(scriptPath);
+        string[] commands = scriptContent.Split(new[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+
+        using (var connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+            foreach (var commandText in commands)
+            {
+                using (var command = new SqlCommand(commandText, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        // else durumunu ekle, dosya yoksa yapýlacak iþlemler
+    }
+}
